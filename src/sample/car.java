@@ -2,24 +2,26 @@ package sample;
 
 public class car {
 
-    private String Model;
-    private int year;
-    private int mileage;
-    private String color;
+     String model;
+     int year;
+     int mileage;
+     String color;
+     int id;
 
-    public car(String model, int year, int mileage, String color) {
-        Model = model;
+    public car(String model, int year, int mileage, String color, int id) {
+        this.model = model;
         this.year = year;
         this.mileage = mileage;
         this.color = color;
+        this.id = id;
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 
     public int getYear() {
@@ -44,5 +46,13 @@ public class car {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

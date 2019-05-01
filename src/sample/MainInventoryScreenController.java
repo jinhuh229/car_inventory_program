@@ -29,7 +29,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class MainInventoryScreenController {
+public class MainInventoryScreenController implements Initializable{
+
+    @FXML
+    private TableView<car> table;
+    @FXML
+    private TableColumn<car, String>  model_table;
+    @FXML
+    private TableColumn<car, Integer>  year_table;
+    @FXML
+    private TableColumn<car, Integer>  mileage_table;
+    @FXML
+    private TableColumn<car, String>  color_table;
+    @FXML
+    private TableColumn<car, Integer>  id_table;
+
 
     @FXML
     void car_serach_onAction(ActionEvent event) {
@@ -45,6 +59,19 @@ public class MainInventoryScreenController {
             e.printStackTrace();
         }
 
+    }
+
+
+    ObservableList<car> oblist = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        model_table.setCellValueFactory(new PropertyValueFactory<>("model"));
+        year_table.setCellValueFactory(new PropertyValueFactory<>("year"));
+        mileage_table.setCellValueFactory(new PropertyValueFactory<>("mileage"));
+        color_table.setCellValueFactory(new PropertyValueFactory<>("color"));
+        id_table.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 }
 
