@@ -3,6 +3,9 @@ package sample;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,21 +32,25 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class MainInventoryScreenController implements Initializable{
+public class MainInventoryScreenController implements Initializable {
 
     @FXML
-    private TableView<car> table;
+    private TableView<car> productTable;
+
     @FXML
     private TableColumn<car, String>  model_table;
+
     @FXML
     private TableColumn<car, Integer>  year_table;
+
     @FXML
     private TableColumn<car, Integer>  mileage_table;
+
     @FXML
     private TableColumn<car, String>  color_table;
+
     @FXML
     private TableColumn<car, Integer>  id_table;
-
 
     @FXML
     void car_serach_onAction(ActionEvent event) {
@@ -65,13 +72,26 @@ public class MainInventoryScreenController implements Initializable{
     ObservableList<car> oblist = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources ) {
+
+        try {
+            Connection con = DBConnection.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("select * from car");
+
+            while(rs.next()) {
+                oblist.add(new car(rs.getString("model"), rs.getInt("year"),rs.getInt("mileage"),rs.getString("color"),rs.getInt("id")));
+            }
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
 
         model_table.setCellValueFactory(new PropertyValueFactory<>("model"));
         year_table.setCellValueFactory(new PropertyValueFactory<>("year"));
         mileage_table.setCellValueFactory(new PropertyValueFactory<>("mileage"));
         color_table.setCellValueFactory(new PropertyValueFactory<>("color"));
         id_table.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        productTable.setItems(oblist);
     }
 }
 

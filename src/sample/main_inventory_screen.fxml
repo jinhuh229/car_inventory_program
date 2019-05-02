@@ -78,13 +78,13 @@
             <Image url="@../image/car1.jpg" />
          </image>
       </ImageView>
-      <TableView id="table" layoutX="455.0" layoutY="154.0" prefHeight="470.0" prefWidth="510.0">
+      <TableView fx:id="productTable" layoutX="455.0" layoutY="154.0" prefHeight="470.0" prefWidth="510.0">
         <columns>
-          <TableColumn id="model_table" prefWidth="133.0" text="Model" />
-          <TableColumn id="year_table" minWidth="0.0" prefWidth="100.0" text="Year" />
-            <TableColumn id="mileage_table" prefWidth="138.0" text="Mileage" />
-            <TableColumn id="color_table" minWidth="0.0" prefWidth="68.0" text="Color" />
-            <TableColumn id="id_table" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="model_table" prefWidth="133.0" text="Model" />
+          <TableColumn fx:id="year_table" minWidth="0.0" prefWidth="100.0" text="Year" />
+            <TableColumn fx:id="mileage_table" prefWidth="138.0" text="Mileage" />
+            <TableColumn fx:id="color_table" minWidth="0.0" prefWidth="68.0" text="Color" />
+            <TableColumn fx:id="id_table" prefWidth="75.0" text="id" />
         </columns>
       </TableView>
       <Button id="add" layoutX="763.0" layoutY="98.0" mnemonicParsing="false" onAction="#car_serach_onAction" prefHeight="20.0" prefWidth="86.0" text="add">
