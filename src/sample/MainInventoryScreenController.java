@@ -32,6 +32,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
+
 public class MainInventoryScreenController implements Initializable {
 
     @FXML
@@ -74,6 +76,11 @@ public class MainInventoryScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources ) {
 
+        loadDataBase();
+    }
+
+     public void loadDataBase(){
+
         try {
             Connection con = DBConnection.getConnection();
             ResultSet rs = con.createStatement().executeQuery("select * from car");
@@ -93,6 +100,13 @@ public class MainInventoryScreenController implements Initializable {
 
         productTable.setItems(oblist);
     }
+
+    public void refesh(){
+
+        oblist.clear();
+        loadDataBase();
+    }
+
 }
 
 

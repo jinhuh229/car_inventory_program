@@ -66,7 +66,6 @@ public class CarSearchedScreenController implements Initializable {
 
 
 
-
         } catch (SQLException ex){
             ex.printStackTrace();
         }
@@ -74,6 +73,19 @@ public class CarSearchedScreenController implements Initializable {
             preparedStatement.execute();
             preparedStatement.close();
         }
+
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add_check_screen.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 }
