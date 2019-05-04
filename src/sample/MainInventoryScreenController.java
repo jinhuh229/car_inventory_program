@@ -4,6 +4,7 @@ package sample;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -22,12 +23,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -55,6 +52,9 @@ public class MainInventoryScreenController implements Initializable {
     private TableColumn<car, Integer>  id_table;
 
     @FXML
+    Button deleteItem;
+
+    @FXML
     void car_serach_onAction(ActionEvent event) {
 
 
@@ -79,6 +79,7 @@ public class MainInventoryScreenController implements Initializable {
         loadDataBase();
     }
 
+    @FXML
      public void loadDataBase(){
 
         try {
@@ -101,11 +102,42 @@ public class MainInventoryScreenController implements Initializable {
         productTable.setItems(oblist);
     }
 
+
+    @FXML
     public void refesh(){
 
         oblist.clear();
         loadDataBase();
     }
+
+
+    @FXML
+    public void deleteColumnTable() throws SQLException{
+        PreparedStatement preparedStatement=null;
+        productTable.getItems().removeAll(productTable.getSelectionModel().getSelectedItem());
+
+        try {
+            car car =(car)productTable.getSelectionModel().getSelectedItem();
+            String query = "SELECT * FROM car";
+            Connection con = DBConnection.getConnection();
+            preparedStatement = con.prepareStatement(query);
+
+            model_table.setText(car.model);
+
+            preparedStatement.close();
+
+
+
+
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            preparedStatement.execute();
+            preparedStatement.close();
+        }
+    }
+
 
 }
 

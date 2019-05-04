@@ -92,7 +92,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="879.0" layoutY="98.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="delete">
+      <Button fx:id="deleteItem" layoutX="879.0" layoutY="98.0" mnemonicParsing="false" onAction="#deleteColumnTable" prefHeight="30.0" prefWidth="86.0" text="delete">
          <font>
             <Font size="14.0" />
          </font>
