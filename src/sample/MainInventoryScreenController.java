@@ -55,6 +55,19 @@ public class MainInventoryScreenController implements Initializable {
     Button deleteItem;
 
     @FXML
+    TextField model_search;
+
+    @FXML
+    TextField year_search;
+
+    @FXML
+    TextField mileage_search;
+
+    @FXML
+    TextField color_search;
+
+
+    @FXML
     void car_serach_onAction(ActionEvent event) {
 
 
@@ -112,9 +125,9 @@ public class MainInventoryScreenController implements Initializable {
 
 
     @FXML
-    public void deleteColumnTable() throws SQLException{
+    public void showColumnTable() throws SQLException{
         PreparedStatement preparedStatement=null;
-        productTable.getItems().removeAll(productTable.getSelectionModel().getSelectedItem());
+        //productTable.getItems().removeAll(productTable.getSelectionModel().getSelectedItem());
 
         try {
             car car =(car)productTable.getSelectionModel().getSelectedItem();
@@ -122,19 +135,19 @@ public class MainInventoryScreenController implements Initializable {
             Connection con = DBConnection.getConnection();
             preparedStatement = con.prepareStatement(query);
 
-            model_table.setText(car.model);
+            model_search.setText(car.model);
+            year_search.setText(String.valueOf(car.year));
+            mileage_search.setText(String.valueOf(car.mileage));
+            color_search.setText(car.color);
 
             preparedStatement.close();
+
 
 
 
 
         } catch (SQLException ex){
             ex.printStackTrace();
-        }
-        finally{
-            preparedStatement.execute();
-            preparedStatement.close();
         }
     }
 

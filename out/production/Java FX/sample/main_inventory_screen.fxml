@@ -38,7 +38,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <TextField id="model" layoutX="150.0" layoutY="146.0" prefHeight="1.0" prefWidth="224.0">
+      <TextField id="model" fx:id="model_search" layoutX="150.0" layoutY="146.0" prefHeight="1.0" prefWidth="224.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="year" layoutX="150.0" layoutY="185.0" prefHeight="30.0" prefWidth="224.0">
+      <TextField id="year" fx:id="year_search" layoutX="150.0" layoutY="185.0" prefHeight="30.0" prefWidth="224.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="mileage" layoutX="150.0" layoutY="225.0" prefHeight="11.0" prefWidth="86.0">
+      <TextField id="mileage" fx:id="mileage_search" layoutX="150.0" layoutY="225.0" prefHeight="11.0" prefWidth="86.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -68,7 +68,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="color" layoutX="288.0" layoutY="226.0" prefHeight="30.0" prefWidth="86.0">
+      <TextField id="color" fx:id="color_search" layoutX="288.0" layoutY="226.0" prefHeight="30.0" prefWidth="86.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -78,7 +78,7 @@
             <Image url="@../image/car1.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="productTable" layoutX="455.0" layoutY="154.0" prefHeight="470.0" prefWidth="510.0">
+      <TableView fx:id="productTable" layoutX="455.0" layoutY="154.0" onMouseClicked="#showColumnTable" prefHeight="470.0" prefWidth="510.0">
         <columns>
           <TableColumn fx:id="model_table" prefWidth="133.0" text="Model" />
           <TableColumn fx:id="year_table" minWidth="0.0" prefWidth="100.0" text="Year" />
@@ -92,7 +92,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="deleteItem" layoutX="879.0" layoutY="98.0" mnemonicParsing="false" onAction="#deleteColumnTable" prefHeight="30.0" prefWidth="86.0" text="delete">
+      <Button fx:id="deleteItem" layoutX="879.0" layoutY="98.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="delete">
          <font>
             <Font size="14.0" />
          </font>
