@@ -86,6 +86,9 @@ public class MainInventoryScreenController implements Initializable {
     @FXML
     TextField color_search;
 
+    @FXML
+    TextField search_text;
+
 
     @FXML
     void car_serach_onAction(ActionEvent event) {
@@ -232,7 +235,10 @@ public class MainInventoryScreenController implements Initializable {
 
             try {
 
-                String query = "SELECT * FROM car WHERE model LIKE '%" + model_search.getText() + "%'";
+                String query = "SELECT * FROM car WHERE model LIKE '%" + search_text.getText() + "%'"
+                                    + "UNION SELECT * FROM car WHERE year LIKE '%" + search_text.getText() + "%'"
+                                    + "UNION SELECT * FROM car WHERE mileage LIKE '%" + search_text.getText() + "%'"
+                                    + "UNION SELECT * FROM car WHERE color LIKE '%" + search_text.getText() + "%'";
                 Connection con = DBConnection.getConnection();
                 preparedStatement = con.prepareStatement(query);
 
@@ -240,33 +246,85 @@ public class MainInventoryScreenController implements Initializable {
 
                 ResultSet rs = preparedStatement.executeQuery();
 
-                if(rs.next()){
+                while(rs.next()){
+
                     oblist1.add(new car(rs.getString("model"), rs.getInt("year"),rs.getInt("mileage"),rs.getString("color"),rs.getInt("id")));
 
-
-
                 }
 
-                model_table_search.setCellValueFactory(new PropertyValueFactory<>("model"));
-                year_table_search.setCellValueFactory(new PropertyValueFactory<>("year"));
-                mileage_table_search.setCellValueFactory(new PropertyValueFactory<>("mileage"));
-                color_table_search.setCellValueFactory(new PropertyValueFactory<>("color"));
-                id_table_search.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-
-                for(int i=0; i<oblist1.size(); i++) {
-                    search_table.setItems(oblist1);
-                }
                 //preparedStatement.close();
-
-
-
 
 
             } catch (SQLException ex){
                 ex.printStackTrace();
             }
 
+
+        model_table_search.setCellValueFactory(new PropertyValueFactory<>("model"));
+        year_table_search.setCellValueFactory(new PropertyValueFactory<>("year"));
+        mileage_table_search.setCellValueFactory(new PropertyValueFactory<>("mileage"));
+        color_table_search.setCellValueFactory(new PropertyValueFactory<>("color"));
+        id_table_search.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        search_table.setItems(oblist1);
+
+    }
+
+    // --------------------------- Delete a item from the list & database ----------------------------
+    @FXML
+    public void AddNewUser() throws SQLException{
+        String model = model_search.getText();
+        int year = Integer.parseInt(year_search.getText());
+        int mileage = Integer.parseInt(mileage_search.getText());
+        String color = color_search.getText();
+
+
+        if(model_search.getText().isEmpty() || year_search.getText().isEmpty() || mileage_search.getText().isEmpty() || color_search.getText().isEmpty()){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add_check_screen.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            String query = "INSERT INTO car (model, year, mileage, color) VALUES (?,?,?,?)";
+            PreparedStatement preparedStatement = null;
+
+            try {
+                Connection con = DBConnection.getConnection();
+                preparedStatement = con.prepareStatement(query);
+
+                preparedStatement.setString(1, model);
+                preparedStatement.setInt(2, year);
+                preparedStatement.setInt(3, mileage);
+                preparedStatement.setString(4, color);
+
+
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                preparedStatement.execute();
+                preparedStatement.close();
+            }
+
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add_scucess_screen.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+
+            refesh();
+        }
 
     }
 }
